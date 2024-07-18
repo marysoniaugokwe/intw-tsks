@@ -1,0 +1,19 @@
+# Common dependencies for Python projects
+numpy==1.21.2
+pandas==1.3.3
+scipy==1.7.1
+matplotlib==3.4.3
+scikit-learn==0.24.2
+
+# Additional dependencies for web development
+Flask==2.0.1
+Django==3.2.7
+
+# Dependencies for data processing and analysis
+requests==2.26.0
+beautifulsoup4==4.9.3
+lxml==4.6.3
+
+# Jupyter and notebook-related dependencies
+jupyter==1.0.0
+notebook==6.4.3
