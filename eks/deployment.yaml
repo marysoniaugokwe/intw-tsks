@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devsecops-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devsecops
+  template:
+    metadata:
+      labels:
+        app: devsecops
+    spec:
+      containers:
+      - name: devsecops-container
+        image: marysonia/devsecops_image 
+        command: ["tail", "-f", "/dev/null"]
+
