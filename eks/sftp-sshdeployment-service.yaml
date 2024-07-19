@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sftp-server
+  namespace: monitor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sftp
+  template:
+    metadata:
+      labels:
+        app: sftp
+    spec:
+      containers:
+      - name: sftp
+        image: atmoz/sftp
+        args: ["user:password:::upload"]
+        ports:
+        - containerPort: 22
+        volumeMounts:
+        - name: ssh-keys
+          mountPath: /home/user/.ssh
+          readOnly: true
+      volumes:
+      - name: ssh-keys
+        secret:
+          secretName: ssh-keys
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sftp-service
+  namespace: monitor
+spec:
+  selector:
+    app: sftp
+  ports:
+  - protocol: TCP
+    port: 22
+    targetPort: 22
+  type: LoadBalancer
+
