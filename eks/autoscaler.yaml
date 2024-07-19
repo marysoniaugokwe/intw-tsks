@@ -1,0 +1,13 @@
+autoDiscovery:
+  clusterName: eks-cluster
+cloudProvider: aws
+awsRegion: us-east-1
+extraArgs:
+  balance-similar-node-groups: true
+  expander: least-waste
+rbac:
+  serviceAccount:
+    create: true
+    annotations:
+      eks.amazonaws.com/role-arn: arn:aws:iam::211125544752:role/EKSClusterAutoscalerRole
+
