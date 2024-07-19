@@ -33,6 +33,8 @@ kind: Service
 metadata:
   name: sftp-service
   namespace: monitor
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: sftp.mydomain.com
 spec:
   selector:
     app: sftp
