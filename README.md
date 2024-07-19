@@ -170,7 +170,7 @@ a. Base image
 b. Packages
 c. Mem/CPU/GPU requests
 
-# Sol. Attaching the screenshot for react app UI here also code is in github repo.
+# Sol. Code is in github repo.
 
 # Task 2. 
 Monitor each environment and make sure that:
@@ -185,7 +185,7 @@ For this tasks first need to install kube-metrics which I used to install using 
 ```
 $ helm install kube-state-metrics prometheus-community/kube-state-metrics --namespace monitoring 
 ```
-Then I wrote two promethues quesry for getting data of CPU and Memory , attahcing the query here. By using this query I created grafana dashboard. attching screenshot here. 
+Then I wrote two promethues quesry for getting data of CPU and Memory , attahcing the query here. By using this query I created grafana dashboard. 
 
 # Query used : 
 
