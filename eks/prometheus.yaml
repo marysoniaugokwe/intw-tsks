@@ -1,0 +1,36 @@
+alertmanager:
+  persistentVolume:
+    enabled: true
+    storageClass: "gp2"
+    size: 10Gi  # Adjust size if necessary
+
+server:
+  persistentVolume:
+    enabled: true
+    storageClass: "gp2"
+    size: 10Gi  # Adjust size if necessary
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "500m"
+    limits:
+      memory: "2Gi"
+      cpu: "1"
+  service:
+    type: NodePort
+    nodePort: 30090
+
+kubeStateMetrics:
+  resources:
+    requests:
+      memory: "200Mi"
+      cpu: "100m"
+    limits:
+      memory: "400Mi"
+      cpu: "200m"
+
+serverFiles:
+  prometheus.yml:
+    rule_files:
+      - /etc/config/alerting-rules.yaml
+

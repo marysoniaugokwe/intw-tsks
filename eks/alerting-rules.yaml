@@ -1,0 +1,11 @@
+groups:
+- name: intw-task
+  rules:
+  - alert: HighPodMemoryUsage
+    expr: sum(container_memory_usage_bytes{namespace="default",container!="POD"}) by (pod) / sum(kube_pod_container_resource_limits_memory_bytes{namespace="default"}) by (pod) > 0.9
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High memory usage on pod {{ $labels.pod }}"
+      description: "{{ $labels.pod }} in namespace {{ $labels.namespace }} is using > 90% of requested memory."

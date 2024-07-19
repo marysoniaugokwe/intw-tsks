@@ -1,0 +1,55 @@
+name: Deploy Development Environment
+
+on:
+  repository_dispatch:
+    types: [deploy-environment]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-west-2
+
+    - name: Set up Kubectl
+      uses: azure/setup-kubectl@v1
+      with:
+        version: 'latest'
+
+    - name: Update Kubeconfig
+      run: aws eks update-kubeconfig --name eks-cluster --region us-east-1
+
+    - name: Deploy to Kubernetes
+      env:
+        BASE_IMAGE: ${{ github.event.client_payload.baseImage }}
+        PACKAGES: ${{ github.event.client_payload.packages }}
+        MEM_REQUEST: ${{ github.event.client_payload.memRequest }}
+        CPU_REQUEST: ${{ github.event.client_payload.cpuRequest }}
+        GPU_REQUEST: ${{ github.event.client_payload.gpuRequest }}
+      run: |
+        cat <<EOF | kubectl apply -f -
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          name: dev-environment
+        spec:
+          containers:
+          - name: dev-container
+            image: $BASE_IMAGE
+            resources:
+              requests:
+                memory: "$MEM_REQUEST"
+                cpu: "$CPU_REQUEST"
+                nvidia.com/gpu: "$GPU_REQUEST"
+            command: ["/bin/sh", "-c"]
+            args: ["apt-get update && apt-get install -y $PACKAGES && tail -f /dev/null"]
+        EOF
+
