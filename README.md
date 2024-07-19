@@ -1,10 +1,10 @@
 # intw-tsks
-Steps to Finish this tasks
+Steps to Finish these tasks
 
 # Task 1. Create an image with python2, python3, R, install a set of requirements and upload it to docker hub.
 
-Use the dockerfile which is in repo and create the docker image and push it to docker hub for this requirement
-command use to create docker image is here
+Use the dockerfile which is in the repo and create the docker image and push it to docker hub for this requirement.
+command used to create docker image is here
 
 ```
 $ docker login -u your_dockerhub_username -p your_password  [ I used my username for dockerhub here]
@@ -52,7 +52,7 @@ b. What would you do to avoid deploying malicious packages?
 ```
 $ trivy image marysonia/devsecops_image --format json --output trivy_report.json
 ```
-Output of this run is in repo with name "trivy_report.json"
+Output of this run is in the repo with name "trivy_report.json"
 
 # NOTE: Trivy Installation step in Ec2 Amazon linux 2
 ```
@@ -95,8 +95,8 @@ Output: workflow.yaml file is avialable in repo under folder .github/workflow , 
 
 Output: I am using prometheus and grafana to monitor all the deployed resources and eks cluster also. 
 
-prometheus.yaml , grafana.yaml files are the values file which i used during my deployment , I used below helm command to deploy 
-both prometheus and grafana. Since helm was not there so i installed helm also in my server
+prometheus.yaml , grafana.yaml files are the values file which i used during my deployment , I used the below helm command to deploy 
+both prometheus and grafana. Since helm was not there, I installed helm also in my server
 
 ```
 $ curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
@@ -109,12 +109,12 @@ $ kubectl create namespace monitoring
 $ helm install prometheus prometheus-community/prometheus --namespace monitoring -f prometheus.yaml
 $ helm install grafana grafana/grafana --namespace monitoring -f grafana.yaml
 ```
-For alerting I update the config in values file of prometheus and created one alerting-rules.yaml file. which is alredy there in repo.
+For alerting, I updated the config in values file of prometheus and created one alerting-rules.yaml file. which is already there in repo.
 
 # Note:
-Once you deploy prometheus to your eks cluster it will go in pending state , reason for this is due to csi driver by default is not running in cluster, so need to run csi driver which required some IAM permmissions , so adding the permission and command here to run csi driver for ebs.
+Once you deploy prometheus to your eks cluster it will go into pending state , this is due to the csi driver, by default, is not running in the cluster. Need to run csi driver which required some IAM permmissions , so adding the permission and command here to run csi driver for ebs.
 
-Follow below commands to run csi driver and re-deploy prometheus
+Follow the below commands to run csi driver and re-deploy prometheus
 ```
 $ helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
 $ helm repo update
@@ -181,11 +181,11 @@ to happen)
 d. Save data to track people requests/usage and evaluate performance
 
 Sol. 
-For this tasks first need to install kube-metrics which I used to install using below command.
+For these tasks, first need to install kube-metrics which I used to install using below command.
 ```
 $ helm install kube-state-metrics prometheus-community/kube-state-metrics --namespace monitoring 
 ```
-Then I wrote two promethues quesry for getting data of CPU and Memory , attahcing the query here. By using this query I created grafana dashboard. 
+Then I wrote two promethues query for getting data of CPU and Memory , attaching the query here. By using this query I created grafana dashboard. 
 
 # Query used : 
 
@@ -215,7 +215,7 @@ $ helm install cluster-autoscaler autoscaler/cluster-autoscaler --namespace kube
     --set awsAccessKeyID=your-access-key-id \
     --set awsSecretAccessKey=your-secret-access-key
 ```
-Since It not worked due to missing permission , So I added policy in role which is attached in node. and updated the values file for autoscaler "eks/autoscaler.yaml" it's in repo.
+Since it not working due to missing permission , I added policy in role which is attached in node. and updated the values file for autoscaler "eks/autoscaler.yaml" it's in repo.
 ```
 $ helm upgrade --install cluster-autoscaler autoscaler/cluster-autoscaler --namespace kube-system -f values.yaml
 ```
@@ -348,7 +348,7 @@ spec:
 
 # Monitoring Memory Usage and Errors
 
-For monitor the state of Memory utilization I will follow below steps 
+For monitoring the state of Memory utilization, I will follow the steps below
 
 Prometheus Metrics:
 
